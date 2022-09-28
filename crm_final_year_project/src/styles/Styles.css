@@ -1,0 +1,18 @@
+.container{
+display: flex;
+justify-content: center;
+align-items: center;
+background-color: aqua;
+/* viewport-: 100px; */
+}
+.card{
+    margin: 20px;
+    padding: 70px;
+}
+.input-group{
+    margin:15px;
+}
+/* .form-control-btn{
+    background: rgb(239, 223, 45);
+    margin-left: 70px;
+} */
