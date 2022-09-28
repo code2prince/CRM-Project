@@ -6,13 +6,17 @@ background-color: aqua;
 /* viewport-: 100px; */
 }
 .card{
-    margin: 20px;
-    padding: 70px;
+    margin: 100px;
+    padding: 50px;
 }
 .input-group{
-    margin:15px;
+    /* margin:1px; */
+    margin-top: 5px;
 }
 /* .form-control-btn{
     background: rgb(239, 223, 45);
     margin-left: 70px;
 } */
+.text-info{
+    cursor: pointer;
+}
