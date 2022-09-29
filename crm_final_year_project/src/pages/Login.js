@@ -1,10 +1,13 @@
 import React, {useState} from 'react';
 import '../styles/Styles.css';
 import {Dropdown, DropdownButton} from 'react-bootstrap';
+import {userSignup} from '../api/auth'; 
+import {login} from '../api/auth';
 
 function Login() {
     const [showSignUp, setShowSignUp] = useState(false);
     const [userType, setUserType] = useState("Customer");
+    const [userSignUpData, setUserSignUpData] = useState({});
 
     const toggleSignUp=() =>{
         setShowSignUp(!showSignUp)
@@ -25,11 +28,11 @@ function Login() {
                             <h3>Login</h3>
                             <form>
                                 <div className='input-group'>
-                                    <input type="text" className='form-control' placeholder='User-Id'/>
+                                    <input type="text" className='form-control' placeholder='User-Id' id="userId"/>
                                 </div>
 
                                 <div className='input-group'>
-                                    <input type="password" className='form-control' placeholder='Password'/>
+                                    <input type="password" className='form-control' placeholder='Password' id='password'/>
                                 </div>
 
                                 <div className='input-group'>
@@ -45,22 +48,22 @@ function Login() {
                         <div className='signUp'>
                             <h3>Sign up</h3>
                              <form>
-                                <div className='input-group m-1 '>
-                                    <input type="text" className='form-control' placeholder='User Full Name'/>
-                                </div>
+                                {/* <div className='input-group m-1 '> */}
+                                    <input type="text" className='form-control m-1' placeholder='User Full Name' id='userName'/>
+                                {/* </div> */}
 
-                                <div className='input-group m-1 '>
-                                    <input type="text" className='form-control' placeholder='Email'/>
-                                </div>
+                                {/* <div className='input-group m-1 '> */}
+                                    <input type="text" className='form-control m-1' placeholder='Email' id='userId'/>
+                                {/* </div> */}
 
                                 {/* <div className='input-group m-1'> */}
                                
-                                    <input type="password" className='form-control m-1' placeholder='Password'/>
+                                    <input type="password" className='form-control m-1' placeholder='Password' id='password'/>
                                 {/* </div> */}
 
-                                <div className='input-group m-1'>
-                                    <input type="password" className='form-control' placeholder='Confirm Password'/>
-                                </div>
+                                {/* <div className='input-group m-1'> */}
+                                    <input type="password" className='form-control m-1' m-1 placeholder='Confirm Password' id='confirmPassword'/>
+                                {/* </div> */}
 
                                 <div className='input-group m-1'>
                                     <span className='text-muted'>User Type </span>
