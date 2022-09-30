@@ -6,6 +6,6 @@ export async function userSignup(data){
     return await axios.post(`${BASE_URL}/crm/api/v1/auth/signUp`,data);
 }
 
-export async function userLogin(data){
-    return await axios.post(`${BASE_URL}/crm/api/v1/auth/login`,data);
-}
+// export async function userLogin(data){
+//     return await axios.post(`${BASE_URL}/crm/api/v1/auth/login`,data);
+// }

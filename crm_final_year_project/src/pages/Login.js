@@ -8,6 +8,8 @@ function Login() {
     const [showSignUp, setShowSignUp] = useState(false);
     const [userType, setUserType] = useState("Customer");
     const [userSignUpData, setUserSignUpData] = useState({});
+    const [message, setMessage] = useState('');
+
 
     const toggleSignUp=() =>{
         setShowSignUp(!showSignUp)
@@ -15,6 +17,39 @@ function Login() {
     const handleSelect=(e)=>{
         setUserType(e)
     }
+    const updateSignUpData= (e)=>{
+        userSignUpData[e.target.id]=e.target.value;
+        console.log(userSignUpData);
+    }
+    const signUpFn =(e)=>{
+        const userName = userSignUpData.userName;
+        const userId = userSignUpData.userId;
+        const password = userSignUpData.password;
+        const confirmPassword = userSignUpData.confirmPassword;
+
+        const data={
+            userName:userName,
+            userId: userId,
+            password: password,
+            confirmPassword:confirmPassword,
+        }
+        console.log("Data",data);
+
+        e.preventDefault();
+        userSignup(data).then(function(response){
+            if(response.status===201){
+                window.location.href = '/'
+            }
+        })
+        .catch(function(error){
+            if(error.response.status===400){
+                setMessage(error.response.data.message);
+            }else{
+                console.log(error);
+            }
+        })
+    }
+
   return (
     <div className='container'>
         
@@ -47,22 +82,22 @@ function Login() {
                             
                         <div className='signUp'>
                             <h3>Sign up</h3>
-                             <form>
+                             <form onSubmit={signUpFn}>
                                 {/* <div className='input-group m-1 '> */}
-                                    <input type="text" className='form-control m-1' placeholder='User Full Name' id='userName'/>
+                                    <input type="text" className='form-control m-1' placeholder='User Full Name' id='userName' onChange={updateSignUpData}/>
                                 {/* </div> */}
 
                                 {/* <div className='input-group m-1 '> */}
-                                    <input type="text" className='form-control m-1' placeholder='Email' id='userId'/>
+                                    <input type="text" className='form-control m-1' placeholder='Email' id='userId' onChange={updateSignUpData}/>
                                 {/* </div> */}
 
                                 {/* <div className='input-group m-1'> */}
                                
-                                    <input type="password" className='form-control m-1' placeholder='Password' id='password'/>
+                                    <input type="password" className='form-control m-1' placeholder='Password' id='password' onChange={updateSignUpData}/>
                                 {/* </div> */}
 
                                 {/* <div className='input-group m-1'> */}
-                                    <input type="password" className='form-control m-1' m-1 placeholder='Confirm Password' id='confirmPassword'/>
+                                    <input type="password" className='form-control m-1' m-1 placeholder='Confirm Password' id='confirmPassword' onChange={updateSignUpData}/>
                                 {/* </div> */}
 
                                 <div className='input-group m-1'>
@@ -86,6 +121,7 @@ function Login() {
                                 <div className='text-info' onClick={toggleSignUp}>
                                     Already have an account ? Login
                                 </div>
+                                <div className='text-danger'>{message}</div>
                             </form>
                         </div>)
                     }
