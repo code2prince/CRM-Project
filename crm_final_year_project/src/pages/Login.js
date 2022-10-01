@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import '../styles/Styles.css';
 import {Dropdown, DropdownButton} from 'react-bootstrap';
-import {userSignup} from '../api/auth'; 
-import {login} from '../api/auth';
+import {userSignup, userSignin} from '../api/auth'; 
+//import {userSignin} from '../api/auth';
 
 function Login() {
     const [showSignUp, setShowSignUp] = useState(false);
@@ -32,6 +32,7 @@ function Login() {
             userId: userId,
             password: password,
             confirmPassword:confirmPassword,
+            userType:userType
         }
         console.log("Data",data);
 
@@ -42,6 +43,33 @@ function Login() {
             }
         })
         .catch(function(error){
+            if(error.response.status===400){
+                setMessage(error.response.data.message);
+            }else{
+                console.log(error);
+            }
+        })
+    }
+
+    const loginFn=(e)=>{
+        const userId= document.getElementById("userId").value;
+        const password= document.getElementById('password').value;
+
+        const data={
+            userId:userId,
+            password:password
+        }
+
+        userSignin(data).then(function(response){
+            console.log(response);
+            if(response.status===200){
+                localStorage.setItem("name", response.data.name);
+            }
+            //customer,engineer,admin u have to create
+            if(response.data.userType==="Customer"){
+                window.location.href= "/Customer"
+            }
+        }).catch(function(error){
             if(error.response.status===400){
                 setMessage(error.response.data.message);
             }else{
@@ -61,7 +89,7 @@ function Login() {
                         !showSignUp ? 
                         (<div className='login'>
                             <h3>Login</h3>
-                            <form>
+                            <form onSubmit={loginFn}>
                                 <div className='input-group'>
                                     <input type="text" className='form-control' placeholder='User-Id' id="userId"/>
                                 </div>
@@ -101,7 +129,7 @@ function Login() {
                                 {/* </div> */}
 
                                 <div className='input-group m-1'>
-                                    <span className='text-muted'>User Type </span>
+                                    <span className='text-muted'>UserType </span>
                                     <DropdownButton 
                                     align="end"
                                     title={userType}
