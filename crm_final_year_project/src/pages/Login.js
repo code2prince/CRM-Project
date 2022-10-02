@@ -34,7 +34,7 @@ function Login() {
             confirmPassword:confirmPassword,
             userType:userType
         }
-        console.log("Data",data);
+        console.log("Details of signup",data);
 
         e.preventDefault();
         userSignup(data).then(function(response){
